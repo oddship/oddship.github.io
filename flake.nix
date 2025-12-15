@@ -1,5 +1,5 @@
 {
-  description = "Development environment for oddship.github.io";
+  description = "oddship.net website";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -12,22 +12,24 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in
       {
+        packages.default = pkgs.buildNpmPackage {
+          pname = "oddship-site";
+          version = "1.0.0";
+          src = ./.;
+          npmDepsHash = "sha256-5A8+2/jax2+/4rcmo9Uy3paG0TLeki8k+KkLGaWog8o=";
+          buildPhase = ''
+            npm run build
+          '';
+          installPhase = ''
+            cp -r dist $out
+          '';
+        };
+
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             nodejs_20
             nodePackages.npm
           ];
-
-          shellHook = ''
-            echo "🚀 Development environment for oddship.github.io"
-            echo "Installing dependencies..."
-            npm install
-            echo "Available commands:"
-            echo "  npm run dev    - Start development server"
-            echo "  npm run build  - Build the project"
-            node --version
-            npm --version
-          '';
         };
       });
 }
