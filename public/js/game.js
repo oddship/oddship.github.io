@@ -28,11 +28,12 @@ function createGrid() {
 
 function drawGrid(grid) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeStyle = '#21262d';
     for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
             ctx.beginPath();
             ctx.rect(col * cellSize, row * cellSize, cellSize, cellSize);
-            ctx.fillStyle = grid[row][col] ? '#fefefe' : '#1a1a1a';
+            ctx.fillStyle = grid[row][col] ? '#22d3ee' : '#0d1117';
             ctx.fill();
             ctx.stroke();
         }

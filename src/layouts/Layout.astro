@@ -4,6 +4,7 @@ export interface Props {
 }
 
 const { title } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
@@ -18,13 +19,17 @@ const { title } = Astro.props;
   </head>
   <body>
     <nav>
-      <a href="/">home</a>
-      <a href="/manifesto">manifesto</a>
-      <a href="/about">about</a>
+      <a href="/" aria-current={currentPath === "/" ? "page" : undefined}>home</a>
+      <a href="/manifesto" aria-current={currentPath === "/manifesto" ? "page" : undefined}>manifesto</a>
+      <a href="/about" aria-current={currentPath === "/about" ? "page" : undefined}>about</a>
     </nav>
-    
+
     <main class="content">
       <slot />
     </main>
+
+    <footer>
+      oddship.net
+    </footer>
   </body>
 </html>
